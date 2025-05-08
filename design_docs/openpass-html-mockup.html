@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenPass - Secure Passphrase Generator</title>
+    <style>
+        :root {
+            --primary: #4c6ef5;
+            --primary-light: #edf2ff;
+            --text-dark: #333;
+            --text-light: #666;
+            --text-muted: #999;
+            --border-color: #e1e5eb;
+            --bg-light: #f5f7fa;
+            --bg-white: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+        }
+        
+        header {
+            background-color: var(--bg-white);
+            padding: 15px 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .logo-icon::before {
+            content: "";
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 18px solid white;
+            position: absolute;
+            transform: rotate(45deg);
+        }
+        
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .user-avatar {
+            width: 30px;
+            height: 30px;
+            background-color: var(--primary-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-weight: 500;
+        }
+        
+        .search-bar {
+            flex-grow: 1;
+            margin: 0 25px;
+            max-width: 500px;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 10px 15px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-light);
+            font-size: 14px;
+        }
+        
+        .main-container {
+            display: flex;
+            min-height: calc(100vh - 70px);
+        }
+        
+        .sidebar {
+            width: 250px;
+            background-color: var(--bg-white);
+            border-right: 1px solid var(--border-color);
+            padding: 20px 0;
+        }
+        
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+        }
+        
+        .nav-item {
+            padding: 12px 25px;
+            cursor: pointer;
+            color: var(--text-light);
+            transition: background-color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .nav-item:hover {
+            background-color: var(--bg-light);
+        }
+        
+        .nav-item.active {
+            background-color: var(--primary-light);
+            color: var(--primary);
+            font-weight: 500;
+        }
+        
+        .nav-section {
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .nav-section-title {
+            padding: 0 25px;
+            margin-bottom: 10px;
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .content-title {
+            font-size: 24px;
+            font-weight: 600;
+        }
+        
+        .password-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .password-card {
+            background-color: var(--bg-white);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s;
+        }
+        
+        .password-card:hover {
+            transform: translateY(-3px);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .site-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-weight: 500;
+            font-size: 18px;
+        }
+        
+        .site-info {
+            flex-grow: 1;
+        }
+        
+        .site-name {
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        .site-username {
+            color: var(--text-light);
+            font-size: 14px;
+            margin: 4px 0 0;
+        }
+        
+        .password-value {
+            font-family: monospace;
+            padding: 8px 0;
+            color: var(--text-light);
+        }
+        
+        .card-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+        
+        .updated-at {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 8px 15px;
+            border-radius: 4px;
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background-color: var(--primary-light);
+            color: var(--primary);
+        }
+        
+        .btn-text {
+            background: none;
+            padding: 8px;
+            color: var(--text-light);
+        }
+        
+        .generator-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: var(--bg-white);
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+        }
+        
+        .passphrase-display {
+            background-color: var(--bg-light);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            position: relative;
+            font-family: monospace;
+            font-size: 18px;
+            line-height: 1.5;
+            word-break: break-all;
+        }
+        
+        .copy-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            color: var(--primary);
+            cursor: pointer;
+        }
+        
+        .options-container {
+            margin-top: 30px;
+        }
+        
+        .option-group {
+            margin-bottom: 20px;
+        }
+        
+        .option-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .option-input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .option-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--bg-light);
+            transition: .4s;
+            border-radius: 34px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background-color: var(--primary);
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        
+        .fab {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 4px 10px rgba(76, 110, 245, 0.3);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .fab:hover {
+            transform: scale(1.05);
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+            
+            .search-bar {
+                display: none;
+            }
+            
+            .logo-text {
+                display: none;
+            }
+            
+            .password-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Tabs for mobile view */
+        .mobile-tabs {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-tabs {
+                display: flex;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background-color: var(--bg-white);
+                border-top: 1px solid var(--border-color);
+                padding: 10px;
+                justify-content: space-around;
+            }
+            
+            .tab {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                font-size: 12px;
+                color: var(--text-light);
+            }
+            
+            .tab.active {
+                color: var(--primary);
+            }
+            
+            .content {
+                padding-bottom: 70px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <div class="logo-icon"></div>
+            <span class="logo-text">OpenPass</span>
+        </div>
+        <div class="search-bar">
+            <input type="text" class="search-input" placeholder="Search passwords, notes, tags...">
+        </div>
+        <div class="user-menu">
+            <div class="user-avatar">JD</div>
+        </div>
+    </header>
+    
+    <div class="main-container">
+        <aside class="sidebar">
+            <div class="nav-item active">All Items</div>
+            <div class="nav-item">Favorites</div>
+            <div class="nav-item">Passwords</div>
+            <div class="nav-item">Passphrases</div>
+            <div class="nav-item">Secure Notes</div>
+            
+            <div class="nav-section">
+                <div class="nav-section-title">Tags</div>
+                <div class="nav-item">Work</div>
+                <div class="nav-item">Personal</div>
+                <div class="nav-item">Finance</div>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-item">Settings</div>
+                <div class="nav-item">Trash</div>
+            </div>
+        </aside>
+        
+        <main class="content">
+            <div class="content-header">
+                <h1 class="content-title">Password Vault</h1>
+                <div class="filters">
+                    <button class="btn btn-secondary">Sort: Recent</button>
+                </div>
+            </div>
+            
+            <div class="password-grid">
+                <div class="password-card">
+                    <div class="card-header">
+                        <div class="site-icon">G</div>
+                        <div class="site-info">
+                            <h3 class="site-name">Google</h3>
+                            <p class="site-username">johndoe@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="password-value">••••••••••••••</div>
+                    <div class="card-actions">
+                        <span class="updated-at">Updated 3 days ago</span>
+                        <div class="action-buttons">
+                            <button class="btn btn-text">Copy</button>
+                            <button class="btn btn-text">View</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="password-card">
+                    <div class="card-header">
+                        <div class="site-icon">A</div>
+                        <div class="site-info">
+                            <h3 class="site-name">Amazon</h3>
+                            <p class="site-username">john.doe@email.com</p>
+                        </div>
+                    </div>
+                    <div class="password-value">••••••••••••••</div>
+                    <div class="card-actions">
+                        <span class="updated-at">Updated 1 week ago</span>
+                        <div class="action-buttons">
+                            <button class="btn btn-text">Copy</button>
+                            <button class="btn btn-text">View</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="password-card">
+                    <div class="card-header">
+                        <div class="site-icon">N</div>
+                        <div class="site-info">
+                            <h3 class="site-name">Netflix</h3>
+                            <p class="site-username">johndoe@email.com</p>
+                        </div>
+                    </div>
+                    <div class="password-value">••••••••••••••</div>
+                    <div class="card-actions">
+                        <span class="updated-at">Updated 2 weeks ago</span>
+                        <div class="action-buttons">
+                            <button class="btn btn-text">Copy</button>
+                            <button class="btn btn-text">View</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="password-card">
+                    <div class="card-header">
+                        <div class="site-icon">F</div>
+                        <div class="site-info">
+                            <h3 class="site-name">Facebook</h3>
+                            <p class="site-username">johndoe@email.com</p>
+                        </div>
+                    </div>
+                    <div class="password-value">••••••••••••••</div>
+                    <div class="card-actions">
+                        <span class="updated-at">Updated 3 weeks ago</span>
+                        <div class="action-buttons">
+                            <button class="btn btn-text">Copy</button>
+                            <button class="btn btn-text">View</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="fab">+</div>
+        </main>
+    </div>
+    
+    <div class="mobile-tabs">
+        <div class="tab active">📋 Vault</div>
+        <div class="tab">🔐 Generator</div>
+        <div class="tab">⚙️ Settings</div>
+        <div class="tab">🔔 Alerts</div>
+    </div>
+</body>
+</html>

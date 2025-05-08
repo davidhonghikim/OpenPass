@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect x="0" y="0" width="800" height="600" fill="#f5f7fa" />
+  
+  <!-- Header Bar -->
+  <rect x="0" y="0" width="800" height="60" fill="#ffffff" stroke="#e1e5eb" stroke-width="1" />
+  <circle cx="40" cy="30" r="20" fill="#4c6ef5" opacity="0.9" />
+  <path d="M30 30 L40 20 L50 30 L40 40 Z" fill="white" />
+  <text x="75" y="35" font-family="Arial" font-size="16" fill="#333">OpenPass</text>
+  
+  <!-- Sidebar (same as dashboard, abbreviated) -->
+  <rect x="0" y="60" width="200" height="540" fill="#ffffff" stroke="#e1e5eb" stroke-width="1" />
+  
+  <rect x="20" y="90" width="160" height="40" rx="5" fill="#ffffff" />
+  <text x="60" y="115" font-family="Arial" font-size="14" fill="#666">All Items</text>
+  
+  <rect x="20" y="140" width="160" height="40" rx="5" fill="#edf2ff" />
+  <text x="60" y="165" font-family="Arial" font-size="14" fill="#4c6ef5">Passphrase Generator</text>
+  
+  <!-- Main Content Area -->
+  <rect x="200" y="60" width="600" height="60" fill="#ffffff" stroke="#e1e5eb" stroke-width="1" />
+  <text x="230" y="100" font-family="Arial" font-size="18" font-weight="bold" fill="#333">Passphrase Generator</text>
+  
+  <!-- Generator Card -->
+  <rect x="230" y="140" width="540" height="400" rx="10" fill="white" stroke="#e1e5eb" stroke-width="1" />
+  
+  <!-- Generated Passphrase Display -->
+  <rect x="260" y="170" width="480" height="80" rx="5" fill="#f8f9fa" stroke="#e1e5eb" stroke-width="1" />
+  <text x="500" y="220" font-family="Arial" font-size="18" text-anchor="middle" fill="#333">correct horse battery staple random dice</text>
+  
+  <!-- Copy Button -->
+  <rect x="650" y="170" width="80" height="30" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1" />
+  <text x="690" y="190" font-family="Arial" font-size="14" text-anchor="middle" fill="#4c6ef5">Copy</text>
+  
+  <!-- Options -->
+  <text x="260" y="290" font-family="Arial" font-size="16" font-weight="bold" fill="#333">Options</text>
+  
+  <!-- Number of Words -->
+  <text x="260" y="330" font-family="Arial" font-size="14" fill="#666">Number of Words</text>
+  <rect x="260" y="340" width="480" height="30" rx="15" fill="#f8f9fa" stroke="#d0d7de" stroke-width="1" />
+  <circle cx="350" cy="355" r="12" fill="#4c6ef5" />
+  <text x="410" y="360" font-family="Arial" font-size="14" text-anchor="middle" fill="#666">6 words</text>
+  
+  <!-- Include Numbers -->
+  <text x="260" y="390" font-family="Arial" font-size="14" fill="#666">Include Numbers</text>
+  <rect x="690" y="385" width="50" height="26" rx="13" fill="#4c6ef5" />
+  <circle cx="703" cy="398" r="10" fill="white" />
+  
+  <!-- Include Special Characters -->
+  <text x="260" y="430" font-family="Arial" font-size="14" fill="#666">Include Special Characters</text>
+  <rect x="690" y="425" width="50" height="26" rx="13" fill="#f8f9fa" stroke="#d0d7de" stroke-width="1" />
+  <circle cx="727" cy="438" r="10" fill="white" stroke="#d0d7de" stroke-width="1" />
+  
+  <!-- Word Separator -->
+  <text x="260" y="470" font-family="Arial" font-size="14" fill="#666">Word Separator</text>
+  <rect x="260" y="480" width="480" height="30" rx="5" fill="#f8f9fa" stroke="#d0d7de" stroke-width="1" />
+  <text x="280" y="500" font-family="Arial" font-size="14" fill="#666">Space</text>
+  <path d="M720 485 L730 495 L720 505" stroke="#666" stroke-width="1.5" fill="none" />
+  
+  <!-- Generate Button -->
+  <rect x="390" y="530" width="220" height="50" rx="5" fill="#4c6ef5" />
+  <text x="500" y="560" font-family="Arial" font-size="16" text-anchor="middle" fill="white">Generate New Passphrase</text>
+</svg>

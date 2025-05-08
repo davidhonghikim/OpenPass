@@ -1,0 +1,27 @@
+flowchart TD
+    A[User Entry] --> B{Existing User?}
+    B -->|Yes| C[Login Screen]
+    B -->|No| D[Registration Screen]
+    
+    C --> E[Authentication]
+    E -->|Success| F[Dashboard]
+    E -->|Failure| C
+    
+    D --> G[Account Creation]
+    G --> E
+    
+    F --> H[Password Vault]
+    F --> I[Passphrase Generator]
+    F --> J[Settings]
+    F --> K[Notifications]
+    
+    H --> L[View/Edit Password Details]
+    L --> M[Copy/Share Password]
+    
+    I --> N[Generate New Passphrase]
+    N --> O[Save to Vault]
+    
+    J --> P[Profile Management]
+    J --> Q[2FA Setup]
+    J --> R[Theme Selection]
+    J --> S[Data Export/Import]

@@ -1,0 +1,68 @@
+graph TD
+    subgraph "Frontend"
+        UI[User Interface]
+        subgraph "Core Screens"
+            Login[Login Screen]
+            Register[Registration Screen]
+            Dashboard[Dashboard/Vault]
+            PG[Passphrase Generator]
+            PD[Password Details]
+            Settings[Settings Screen]
+        end
+        subgraph "Components"
+            Nav[Navigation]
+            PassCard[Password Card]
+            SearchBar[Search & Filter]
+            Alerts[Alert System]
+            Tags[Tag Management]
+            Modal[Modal Windows]
+            ThemeSwitch[Theme Switcher]
+        end
+    end
+    
+    subgraph "Business Logic"
+        Auth[Authentication]
+        PassGen[Passphrase Generation]
+        Encryption[Encryption/Decryption]
+        PassStrength[Password Strength Analysis]
+        DataSync[Data Synchronization]
+        Export[Export/Import]
+    end
+    
+    subgraph "Data Layer"
+        LocalDB[Local Database]
+        SecureStorage[Secure Storage]
+        Cloud[Cloud Backup]
+    end
+    
+    subgraph "Security"
+        MFA[Multi-Factor Auth]
+        Biometric[Biometric Auth]
+        Vault[Secure Vault]
+        ZeroKnowledge[Zero-Knowledge Arch]
+    end
+    
+    UI --> Core Screens
+    UI --> Components
+    
+    Login --> Auth
+    Register --> Auth
+    Dashboard --> PassCard
+    Dashboard --> SearchBar
+    PG --> PassGen
+    
+    Auth --> MFA
+    Auth --> Biometric
+    PassGen --> Encryption
+    Encryption --> Vault
+    
+    DataSync --> LocalDB
+    DataSync --> Cloud
+    Export --> SecureStorage
+    
+    PassStrength --> PassCard
+    Tags --> PassCard
+    Alerts --> Modal
+    
+    SecureStorage --> ZeroKnowledge
+    LocalDB --> ZeroKnowledge

@@ -1,0 +1,205 @@
+Project Name: OpenPass – Secure Passphrase Generator and Password Manager
+
+Design Style:
+    •    Clean, modern, and intuitive.
+    •    Minimalist with a focus on security and privacy.
+    •    Light and dark mode support.
+    •    Responsive design for seamless experience across web and mobile.
+
+⸻
+
+Key Pages and Screens:
+    1.    Login & Registration:
+    •    Simple, clean forms with animated input fields.
+    •    Secure password inputs with visibility toggle.
+    •    Biometric authentication option for mobile (e.g., Face ID, fingerprint).
+    •    “Forgot Password” and “Create Account” links.
+    2.    Dashboard (Password Vault):
+    •    Overview of stored passwords, notes, and passphrases.
+    •    Quick actions for copying, editing, and deleting entries.
+    •    Search bar with real-time filtering.
+    •    Folder and tagging system for better organization.
+    3.    Passphrase Generator:
+    •    Diceware-based passphrase generation with customizable length.
+    •    Option to include numbers, special characters, and separators.
+    •    Real-time preview of generated passphrase.
+    •    Quick copy and save buttons.
+    4.    Password Details:
+    •    Detailed view of individual passwords.
+    •    Options to view, edit, and share securely.
+    •    Password strength indicator and last modified date.
+    5.    Settings:
+    •    Profile management, 2FA setup, and recovery options.
+    •    Theme switcher (light/dark mode).
+    •    Data export/import for backups.
+    6.    Notifications and Alerts:
+    •    Breach alerts, password strength warnings, and security reminders.
+    •    Push notifications for mobile and browser extensions.
+
+⸻
+
+UI Components:
+    •    Cards and tiles for passwords and notes.
+    •    Smooth, modern animations (e.g., slide transitions, micro-interactions).
+    •    Icon set for security (e.g., lock, fingerprint, key).
+    •    Consistent typography and color palette for a professional look.
+
+⸻
+
+Brand Identity:
+    •    Logo: Modern, secure, and tech-focused.
+    •    Primary Colors: Deep blues, cool grays, with vibrant accent colors.
+    •    Fonts: Clean, sans-serif (e.g., Inter, Roboto, or Poppins).
+
+⸻
+
+Sample User Flow:
+    1.    User logs in or registers.
+    2.    Accesses dashboard to view saved passwords.
+    3.    Generates a new passphrase for a new account.
+    4.    Saves the passphrase securely in the vault.
+    5.    Configures 2FA and biometric settings for added security.
+
+⸻
+
+User Flowchart (Mermaid):
+
+```mermaid
+flowchart TD
+    A[User Entry] --> B{Existing User?}
+    B -->|Yes| C[Login Screen]
+    B -->|No| D[Registration Screen]
+    
+    C --> E[Authentication]
+    E -->|Success| F[Dashboard]
+    E -->|Failure| C
+    
+    D --> G[Account Creation]
+    G --> E
+    
+    F --> H[Password Vault]
+    F --> I[Passphrase Generator]
+    F --> J[Settings]
+    F --> K[Notifications]
+    
+    H --> L[View/Edit Password Details]
+    L --> M[Copy/Share Password]
+    
+    I --> N[Generate New Passphrase]
+    N --> O[Save to Vault]
+    
+    J --> P[Profile Management]
+    J --> Q[2FA Setup]
+    J --> R[Theme Selection]
+    J --> S[Data Export/Import]
+```
+
+Architectural Components (Mermaid):
+
+```mermaid
+graph TD
+    subgraph "Frontend"
+        UI[User Interface]
+        subgraph "Core Screens"
+            Login[Login Screen]
+            Register[Registration Screen]
+            Dashboard[Dashboard/Vault]
+            PG[Passphrase Generator]
+            PD[Password Details]
+            Settings[Settings Screen]
+        end
+        subgraph "Components"
+            Nav[Navigation]
+            PassCard[Password Card]
+            SearchBar[Search & Filter]
+            Alerts[Alert System]
+            Tags[Tag Management]
+            Modal[Modal Windows]
+            ThemeSwitch[Theme Switcher]
+        end
+    end
+    
+    subgraph "Business Logic"
+        Auth[Authentication]
+        PassGen[Passphrase Generation]
+        Encryption[Encryption/Decryption]
+        PassStrength[Password Strength Analysis]
+        DataSync[Data Synchronization]
+        Export[Export/Import]
+    end
+    
+    subgraph "Data Layer"
+        LocalDB[Local Database]
+        SecureStorage[Secure Storage]
+        Cloud[Cloud Backup]
+    end
+    
+    subgraph "Security"
+        MFA[Multi-Factor Auth]
+        Biometric[Biometric Auth]
+        Vault[Secure Vault]
+        ZeroKnowledge[Zero-Knowledge Arch]
+    end
+    
+    UI --> Core Screens
+    UI --> Components
+    
+    Login --> Auth
+    Register --> Auth
+    Dashboard --> PassCard
+    Dashboard --> SearchBar
+    PG --> PassGen
+    
+    Auth --> MFA
+    Auth --> Biometric
+    PassGen --> Encryption
+    Encryption --> Vault
+    
+    DataSync --> LocalDB
+    DataSync --> Cloud
+    Export --> SecureStorage
+    
+    PassStrength --> PassCard
+    Tags --> PassCard
+    Alerts --> Modal
+    
+    SecureStorage --> ZeroKnowledge
+    LocalDB --> ZeroKnowledge
+```
+
+OpenPass App Design Overview
+I've created several SVG wireframes and diagrams to visualize the OpenPass app based on your requirements:
+
+App Flow Diagram - Shows the user journey and main navigation paths through the app
+Login Screen - Clean, minimal design with logo and authentication options
+Dashboard/Vault - Password management view with search, filtering, and password cards
+Passphrase Generator - Interface for creating secure passphrases with customization options
+Password Details - Detailed view of a single password with copy/edit functions
+Settings Screen - Configuration options including profile, security, and appearance
+Architecture Diagram - Comprehensive view of app components and their relationships
+HTML Mockup - Interactive sample showing responsive design of the password vault
+
+Key Design Elements
+The wireframes follow the requirements you specified:
+
+Clean, modern, minimalist design
+Focus on security and privacy
+Support for light/dark mode (toggles shown in settings)
+Responsive design considerations
+
+User Experience Flow
+The app follows a logical flow:
+
+Users authenticate via login screen
+Main dashboard shows password vault with all stored items
+Users can generate new passphrases with customizable options
+Individual passwords can be viewed and managed in detail
+Settings provide configuration options for security and appearance
+
+Implementation Considerations
+For development, you could implement this design using:
+
+React or Flutter for cross-platform compatibility
+Secure local storage with encryption
+Diceware algorithm for passphrase generation
+Responsive design principles for mobile and desktop
